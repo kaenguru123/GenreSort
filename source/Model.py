@@ -15,7 +15,7 @@ class Model():
         self.genre_dict = {}
         self.update_genre_dict()
 
-        self.selected_song = ''
+        self.current_song = ''
         self.song_list = []
         self.update_song_list()
 
@@ -30,7 +30,7 @@ class Model():
     def update_song_list(self):
         dir_content = sorted(os.listdir(self.main_directory))
         self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
-        if self.song_list: self.selected_song = self.song_list[0]
+        if self.song_list: self.current_song = self.song_list[0]
 
     def save_var_in_config(self, section, var, value):
         if var == '' or value == '': return
@@ -38,3 +38,6 @@ class Model():
         
         with open(self.config_file, 'wt') as config_file:
             self.config.write(config_file)
+    
+    def get_path_curr_song(self):
+        return os.path.join(self.main_directory.replace('/', '\\'), self.current_song)

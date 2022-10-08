@@ -26,6 +26,7 @@ class View(tk.Tk):
 
     def update(self):
         self.file_view.listbox_songs.delete(0)
+        self.music_player.track.set(self.controller.model.get_path_cur_song())
 
     def build_main_widgets(self):
         self.make_file_view()
@@ -44,8 +45,9 @@ class View(tk.Tk):
         self.file_view.grid(row=0, column=0, padx=self.PAD, pady=self.PAD, sticky='n')
 
     def make_music_player(self):
-        music_player = MusicPlayer(self)
-        music_player.grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
+        self.music_player = MusicPlayer(self)
+        self.music_player.track.set(self.controller.model.get_path_curr_song())
+        self.music_player.grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
 
     def make_genre_sort(self):
         genre_sort = GenreSort(self, self.controller)

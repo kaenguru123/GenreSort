@@ -7,7 +7,7 @@ class Controller():
         self.model = Model()
 
     def move_song_to(self, destination):
-        song = self.model.selected_song
+        song = self.model.current_song
         directory = self.model.main_directory.replace('/', '\\')
 
         dest_dir = os.path.join(directory, destination)
