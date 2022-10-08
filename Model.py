@@ -16,9 +16,7 @@ class Model():
         self.selected_song = ''
         self.song_list = []
         
-        dir_content = sorted(os.listdir(self.main_directory))
-        self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
-        self.selected_song = self.song_list[0]
+        self.update_song_list()
 
         try:
             self.update()
@@ -29,8 +27,12 @@ class Model():
         self.genre_dict = self.config._sections['genre']
 
     def update_song_list(self):
-        self.song_list.pop(0)
+        dir_content = sorted(os.listdir(self.main_directory))
+        self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
         self.selected_song = self.song_list[0]
+
+        # self.song_list.pop(0)
+        # self.selected_song = self.song_list[0]
 
     def save_var_in_config(self, section, var, value):
         if var == '' or value == '': return
@@ -40,7 +42,7 @@ class Model():
             self.config.write(config_file)
 
     def add_genre(self, genre):
-        self.save_var_in_config('genre', genre, '\\' + genre)
+        self.save_var_in_config('genre', genre, genre)
         return ''
 
     def open_directory(self):
@@ -55,5 +57,15 @@ class Model():
     def move_song_to(self, destination):
         song = self.selected_song
         print(destination + ' <- ' + song)
+
+        directory = self.main_directory.replace('/', '\\')
+
+        dest_dir = os.path.join(directory, destination)
+        dest = os.path.join(dest_dir, song)
+        origin = os.path.join(directory, song)
+        
+        if not os.path.isdir(dest_dir): os.mkdir(dest_dir)
+        os.rename(origin, dest)
+
         self.update_song_list()
         self.update()

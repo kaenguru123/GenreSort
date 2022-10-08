@@ -15,17 +15,8 @@ class FileView(tk.Frame):
             listvariable=self.tk_song_list, 
             height=40, 
             width=100, 
-            selectmode=tk.SINGLE, 
-            yscrollcommand=None)
-        self.listbox_songs.activate(0)
+            selectmode=tk.SINGLE)
         self.listbox_songs.pack()
-
-    def select_first(self):
-        self.listbox_songs.activate(0)
-    
-    def get_selected(self):
-        selected = self.listbox_songs.curselection()
-        return selected
 
     # def update_selected(self):
     #     self.controller.model.selected_song = self.listbox_songs.curselection()

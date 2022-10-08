@@ -37,15 +37,15 @@ class View(tk.Tk):
 
     def make_file_view(self):
         self.file_view = FileView(self, self.controller.model.song_list)
-        self.controller.model.update = lambda list=self.controller.model.song_list: self.file_view.__init__(self, list)
+        self.controller.model.update = lambda: self.make_file_view()
         self.file_view.grid(row=0, column=0, padx=self.PAD, pady=self.PAD, sticky='n')
-        # tk.Button(self, text='select first', width=50, command= lambda: self.file_view.select_first()).grid(row=2, column=2, padx=self.PAD, pady=self.PAD)
 
     def make_music_player(self):
         pass
 
     def make_genre_sort(self):
         genre_sort = GenreSort(self, self.controller)
+        genre_sort.grid_forget()
         genre_sort.grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
 
     def open_settings(self):
