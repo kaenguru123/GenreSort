@@ -4,10 +4,8 @@ from FileView import FileView
 from GenreSort import GenreSort
 
 class View(tk.Tk):
+    PAD = 5
     def __init__(self):
-
-        self.PAD = 5
-
         super().__init__()
 
         self.controller = Controller()
@@ -38,25 +36,17 @@ class View(tk.Tk):
         self.config(menu=self.menu)
 
     def make_file_view(self):
-        self.file_view = FileView(self, self.controller.model.main_directory)
-        self.file_view.grid(row=0, column=0, rowspan=15, padx=self.PAD, pady=self.PAD, sticky='n')
-        tk.Button(self, text='select first', width=50, command= lambda: self.file_view.select_first()).grid(row=2, column=2, padx=self.PAD, pady=self.PAD)
+        self.file_view = FileView(self, self.controller.model.song_list)
+        self.controller.model.update = lambda list=self.controller.model.song_list: self.file_view.__init__(self, list)
+        self.file_view.grid(row=0, column=0, padx=self.PAD, pady=self.PAD, sticky='n')
+        # tk.Button(self, text='select first', width=50, command= lambda: self.file_view.select_first()).grid(row=2, column=2, padx=self.PAD, pady=self.PAD)
 
     def make_music_player(self):
         pass
 
     def make_genre_sort(self):
-        self.genres = self.controller.model.genre_dict
-
-        columnIndex = 1
-        rowIndex = 0
-        alphabetic_keys = sorted(self.genres.keys())
-        for genre in alphabetic_keys:
-            if rowIndex == 15: 
-                columnIndex += 1
-                rowIndex = 0
-            tk.Button(self, text=genre, width=20, command= lambda dest=self.genres[genre], song=self.file_view.get_selected(): self.controller.move_song_to(dest, song)).grid(row=rowIndex, column=columnIndex, padx=self.PAD, pady=self.PAD)
-            rowIndex +=1
+        genre_sort = GenreSort(self, self.controller)
+        genre_sort.grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
 
     def open_settings(self):
         settings = tk.Toplevel()

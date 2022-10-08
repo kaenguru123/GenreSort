@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import os
+import re
 from tkinter import filedialog
-from FileView import FileView
 
 class Model():
     def __init__(self):
@@ -11,11 +11,26 @@ class Model():
         self.config.read(self.config_file)
 
         self.main_directory = self.config['path']['main_directory']
+        self.genre_dict = {}
         self.update_genre_dict()
-        self.selected_song = None
+        self.selected_song = ''
+        self.song_list = []
+        
+        dir_content = sorted(os.listdir(self.main_directory))
+        self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
+        self.selected_song = self.song_list[0]
+
+        try:
+            self.update()
+        except:
+            self.update = None
 
     def update_genre_dict(self):
         self.genre_dict = self.config._sections['genre']
+
+    def update_song_list(self):
+        self.song_list.pop(0)
+        self.selected_song = self.song_list[0]
 
     def save_var_in_config(self, section, var, value):
         if var == '' or value == '': return
@@ -36,3 +51,9 @@ class Model():
             return path
         else:
             return self.main_directory
+
+    def move_song_to(self, destination):
+        song = self.selected_song
+        print(destination + ' <- ' + song)
+        self.update_song_list()
+        self.update()
