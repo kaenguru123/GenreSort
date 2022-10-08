@@ -2,6 +2,7 @@ import tkinter as tk
 from Controller import Controller
 from FileView import FileView
 from GenreSort import GenreSort
+from MusicPlayer import MusicPlayer
 
 class View(tk.Tk):
     PAD = 5
@@ -9,6 +10,7 @@ class View(tk.Tk):
         super().__init__()
 
         self.controller = Controller()
+        self.controller.model.update = lambda: self.update()
 
         self.menu = tk.Menu(self)
         self.make_menu()
@@ -18,10 +20,12 @@ class View(tk.Tk):
         self.value_music_directory = tk.StringVar(value=self.controller.model.main_directory)
     
         self.title('GenreSort')
-        #self.minsize(1500,750)
         self.resizable(0,0)
 
         self.mainloop()
+
+    def update(self):
+        self.file_view.listbox_songs.delete(0)
 
     def build_main_widgets(self):
         self.make_file_view()
@@ -37,11 +41,11 @@ class View(tk.Tk):
 
     def make_file_view(self):
         self.file_view = FileView(self, self.controller.model.song_list)
-        self.controller.model.update = lambda: self.make_file_view()
         self.file_view.grid(row=0, column=0, padx=self.PAD, pady=self.PAD, sticky='n')
 
     def make_music_player(self):
-        pass
+        music_player = MusicPlayer(self)
+        music_player.grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
 
     def make_genre_sort(self):
         genre_sort = GenreSort(self, self.controller)
@@ -63,6 +67,7 @@ class View(tk.Tk):
 
     def exit_settings(self, settings):
         settings.destroy()
+        self.controller.model.update_genre_dict()
         self.controller.model.update_song_list()
         self.build_main_widgets()
 
@@ -78,11 +83,7 @@ class View(tk.Tk):
         entry_new_genre.grid(row=0, column=0, columnspan=2, padx=self.PAD, pady=self.PAD)
 
         tk.Button(add_genre, text='add', width=40, command= lambda: value_new_genre.set(self.controller.add_genre(value_new_genre.get()))).grid(row=1, column=1, padx=self.PAD, pady=self.PAD)
-        tk.Button(add_genre, text='save changes and exit', width=40, command= lambda: self.exit_add_genre(add_genre)).grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
-
-    def exit_add_genre(self, add_genre):
-        self.controller.model.update_genre_dict()
-        add_genre.destroy()
+        tk.Button(add_genre, text='save changes and exit', width=40, command=add_genre.destroy).grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
 
 def main():
     GenreSort = View()

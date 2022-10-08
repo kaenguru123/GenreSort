@@ -1,5 +1,4 @@
 import os
-import tkinter as tk
 from tkinter import filedialog
 from Model import Model
 
@@ -19,7 +18,7 @@ class Controller():
         os.rename(origin, dest)
 
         self.model.update_song_list()
-        self.mode.update()
+        self.model.update()
 
     def add_genre(self, genre):
         self.model.save_var_in_config('genre', genre, genre)

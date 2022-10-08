@@ -1,7 +1,6 @@
 from configparser import ConfigParser
 import os
 import re
-from tkinter import filedialog
 
 class Model():
     def __init__(self):
