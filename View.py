@@ -18,7 +18,7 @@ class View(tk.Tk):
         self.value_music_directory = tk.StringVar(value=self.controller.model.main_directory)
     
         self.title('GenreSort')
-        self.minsize(1500,750)
+        #self.minsize(1500,750)
         self.resizable(0,0)
 
         self.mainloop()
@@ -52,6 +52,7 @@ class View(tk.Tk):
         settings = tk.Toplevel()
         settings.lift()
         settings.grab_set()
+        settings.resizable(0,0)
 
         self.entry_music_directory = tk.Entry(settings, width=100, textvariable=self.value_music_directory, state='readonly')
         self.entry_music_directory.grid(row=0, column=0, padx=self.PAD, pady=self.PAD)
@@ -68,6 +69,7 @@ class View(tk.Tk):
         add_genre = tk.Toplevel()
         add_genre.lift()
         add_genre.grab_set()
+        add_genre.resizable(0,0)
 
         value_new_genre = tk.StringVar()
 

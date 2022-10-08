@@ -27,12 +27,10 @@ class Model():
         self.genre_dict = self.config._sections['genre']
 
     def update_song_list(self):
+        if not os.path.exists(self.main_directory): self.main_directory = os.path.abspath('.')
         dir_content = sorted(os.listdir(self.main_directory))
         self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
-        self.selected_song = self.song_list[0]
-
-        # self.song_list.pop(0)
-        # self.selected_song = self.song_list[0]
+        if self.song_list: self.selected_song = self.song_list[0]
 
     def save_var_in_config(self, section, var, value):
         if var == '' or value == '': return
@@ -56,8 +54,6 @@ class Model():
 
     def move_song_to(self, destination):
         song = self.selected_song
-        print(destination + ' <- ' + song)
-
         directory = self.main_directory.replace('/', '\\')
 
         dest_dir = os.path.join(directory, destination)
