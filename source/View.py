@@ -57,12 +57,13 @@ class View(tk.Tk):
         self.entry_music_directory = tk.Entry(settings, width=100, textvariable=self.value_music_directory, state='readonly')
         self.entry_music_directory.grid(row=0, column=0, padx=self.PAD, pady=self.PAD)
 
-        tk.Button(settings, text='select directory', width=50, command= lambda: self.value_music_directory.set(self.controller.model.open_directory())).grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
+        tk.Button(settings, text='select directory', width=50, command= lambda: self.value_music_directory.set(self.controller.open_directory())).grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
         tk.Button(settings, text='add genre', width=50, command= lambda: self.open_add_genre()).grid(row=1, column=0, columnspan=2, padx=self.PAD, pady=self.PAD, sticky='e')
         tk.Button(settings, text='exit', width=50, command= lambda: self.exit_settings(settings)).grid(row=2, column=0, columnspan=2, padx=self.PAD, pady=self.PAD, sticky='e')
 
     def exit_settings(self, settings):
         settings.destroy()
+        self.controller.model.update_song_list()
         self.build_main_widgets()
 
     def open_add_genre(self):
@@ -76,7 +77,7 @@ class View(tk.Tk):
         entry_new_genre = tk.Entry(add_genre, width=100, textvariable=value_new_genre)
         entry_new_genre.grid(row=0, column=0, columnspan=2, padx=self.PAD, pady=self.PAD)
 
-        tk.Button(add_genre, text='add', width=40, command= lambda: value_new_genre.set(self.controller.model.add_genre(value_new_genre.get()))).grid(row=1, column=1, padx=self.PAD, pady=self.PAD)
+        tk.Button(add_genre, text='add', width=40, command= lambda: value_new_genre.set(self.controller.add_genre(value_new_genre.get()))).grid(row=1, column=1, padx=self.PAD, pady=self.PAD)
         tk.Button(add_genre, text='save changes and exit', width=40, command= lambda: self.exit_add_genre(add_genre)).grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
 
     def exit_add_genre(self, add_genre):
