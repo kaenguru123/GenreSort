@@ -1,5 +1,0 @@
-1. move method for songs (GenreSort) + where to put method (genresort? Controller? model?)
-
-2. View for Files in directory
-
-3. (music player for top file in view) 
