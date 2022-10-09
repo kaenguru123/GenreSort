@@ -1,5 +1,4 @@
 import tkinter as tk
-from Controller import Controller
 
 class FileView(tk.Frame):
     def __init__(self, parent, song_list):
@@ -17,9 +16,3 @@ class FileView(tk.Frame):
             width=100, 
             selectmode=tk.SINGLE)
         self.listbox_songs.pack()
-
-    # def update_selected(self):
-    #     self.controller.model.selected_song = self.listbox_songs.curselection()
-
-
-    

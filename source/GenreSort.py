@@ -16,5 +16,5 @@ class GenreSort(tk.Frame):
             if rowIndex == 15: 
                 columnIndex += 1
                 rowIndex = 0
-            tk.Button(self, text=genre, width=20, command= lambda dest=self.genres[genre]: self.controller.model.move_song_to(dest)).grid(row=rowIndex, column=columnIndex, padx=self.PAD, pady=self.PAD)
+            tk.Button(self, text=genre, width=20, command= lambda dest=self.genres[genre]: self.controller.move_song_to(dest)).grid(row=rowIndex, column=columnIndex, padx=self.PAD, pady=self.PAD)
             rowIndex +=1
