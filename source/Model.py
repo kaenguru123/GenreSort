@@ -19,10 +19,7 @@ class Model():
         self.song_list = []
         self.update_song_list()
 
-        try:
-            self.update()
-        except:
-            self.update = None
+        self.update = None
 
     def update_genre_dict(self):
         self.genre_dict = self.config._sections['genre']

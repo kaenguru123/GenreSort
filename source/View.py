@@ -5,7 +5,7 @@ from GenreSort import GenreSort
 from MusicPlayer import MusicPlayer
 
 class View(tk.Tk):
-    PAD = 5
+    PAD = 10
     def __init__(self):
         super().__init__()
 
@@ -16,6 +16,7 @@ class View(tk.Tk):
         self.make_menu()
 
         self.build_main_widgets()
+        self.controller.clear_track = lambda: self.music_player.clear_track()
 
         self.value_music_directory = tk.StringVar(value=self.controller.model.main_directory)
     
@@ -26,7 +27,7 @@ class View(tk.Tk):
 
     def update(self):
         self.file_view.listbox_songs.delete(0)
-        self.music_player.track.set(self.controller.model.get_path_cur_song())
+        self.music_player.update_mp(self.controller.model.get_path_curr_song())
 
     def build_main_widgets(self):
         self.make_file_view()

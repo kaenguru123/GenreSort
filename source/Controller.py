@@ -5,8 +5,11 @@ from Model import Model
 class Controller():
     def __init__(self):
         self.model = Model()
+        self.clear_track = None
 
     def move_song_to(self, destination):
+        self.clear_track()
+
         song = self.model.current_song
         directory = self.model.main_directory.replace('/', '\\')
 
