@@ -18,7 +18,15 @@ class Controller():
         origin = os.path.join(directory, song)
         
         if not os.path.isdir(dest_dir): os.mkdir(dest_dir)
-        os.rename(origin, dest)
+        try:
+            os.rename(origin, dest)
+            print(song + ' -> ' + dest)
+        except FileExistsError:
+            dest_dir = os.path.join(directory, 'DUPLICATES')
+            dest = os.path.join(dest_dir, song)
+            if not os.path.isdir(dest_dir): os.mkdir(dest_dir)
+            os.rename(origin, dest)
+            print('ERR: song already exists in that genre!')
 
         self.model.update_song_list()
         self.model.update()
