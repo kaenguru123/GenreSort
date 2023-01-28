@@ -5,7 +5,7 @@ from GenreSort import GenreSort
 from MusicPlayer import MusicPlayer
 
 class View(tk.Tk):
-    PAD = 10
+    PAD = 0
     def __init__(self):
         super().__init__()
 
@@ -48,12 +48,12 @@ class View(tk.Tk):
     def make_music_player(self):
         self.music_player = MusicPlayer(self)
         self.music_player.track.set(self.controller.model.get_path_curr_song())
-        self.music_player.grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
+        self.music_player.grid(row=2, column=0, padx=self.PAD, pady=self.PAD)
 
     def make_genre_sort(self):
         genre_sort = GenreSort(self, self.controller)
         genre_sort.grid_forget()
-        genre_sort.grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
+        genre_sort.grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
 
     def open_settings(self):
         settings = tk.Toplevel()
@@ -61,7 +61,7 @@ class View(tk.Tk):
         settings.grab_set()
         settings.resizable(0,0)
 
-        self.entry_music_directory = tk.Entry(settings, width=100, textvariable=self.value_music_directory, state='readonly')
+        self.entry_music_directory = tk.Entry(settings, width=50, textvariable=self.value_music_directory, state='readonly')
         self.entry_music_directory.grid(row=0, column=0, padx=self.PAD, pady=self.PAD)
 
         tk.Button(settings, text='select directory', width=50, command= lambda: self.value_music_directory.set(self.controller.open_directory())).grid(row=0, column=1, padx=self.PAD, pady=self.PAD)
@@ -82,7 +82,7 @@ class View(tk.Tk):
 
         value_new_genre = tk.StringVar()
 
-        entry_new_genre = tk.Entry(add_genre, width=100, textvariable=value_new_genre)
+        entry_new_genre = tk.Entry(add_genre, width=50, textvariable=value_new_genre)
         entry_new_genre.grid(row=0, column=0, columnspan=2, padx=self.PAD, pady=self.PAD)
 
         tk.Button(add_genre, text='add', width=40, command= lambda: value_new_genre.set(self.controller.add_genre(value_new_genre.get()))).grid(row=1, column=1, padx=self.PAD, pady=self.PAD)

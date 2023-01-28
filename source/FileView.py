@@ -12,7 +12,7 @@ class FileView(tk.Frame):
     def make_listbox(self):
         self.listbox_songs = tk.Listbox(self,
             listvariable=self.tk_song_list, 
-            height=40, 
-            width=100, 
+            height=10, 
+            width=50, 
             selectmode=tk.SINGLE)
         self.listbox_songs.pack()

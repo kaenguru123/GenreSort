@@ -13,7 +13,6 @@ class MusicPlayer(tk.Frame):
 
         self.curr_pos = 0
 
-
         pygame.init()
         pygame.mixer.init()
 
@@ -36,7 +35,7 @@ class MusicPlayer(tk.Frame):
         tk.Button(self,text=u'\u23EF',command=self.play_pause,width=10,height=1,font=('times new roman',16,'bold'),fg='navyblue',bg='pink').grid(row=0,column=1,padx=10,pady=5)
         tk.Button(self,text=u'\u23F9',command=self.stopsong,width=10,height=1,font=('times new roman',16,'bold'),fg='navyblue',bg='pink').grid(row=0,column=2,padx=10,pady=5)
         tk.Button(self,text='set',command=self.set_track_pos,width=10,height=1,font=('times new roman',16,'bold'),fg='navyblue',bg='pink').grid(row=1,column=0,padx=10,pady=5)
-        self.track_slider = tk.Scale(self, from_=0, to=500, length=300, orient=tk.HORIZONTAL)
+        self.track_slider = tk.Scale(self, from_=0, to=500, length=100, orient=tk.HORIZONTAL)
         self.track_slider.grid(row=1, column=1, columnspan=2)
 
     def set_track_pos(self):
