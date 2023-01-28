@@ -12,9 +12,21 @@ class GenreSort(tk.Frame):
         columnIndex = 0
         rowIndex = 0
         alphabetic_keys = sorted(self.genres.keys())
+        
+        text = tk.Text(self)
+        text.pack(side="left")
+        sb = tk.Scrollbar(self, command=text.yview)
+        sb.pack(side="right")
+        text.configure(yscrollcommand=sb.set)
+        
         for genre in alphabetic_keys:
-            if rowIndex == 15: 
-                columnIndex += 1
-                rowIndex = 0
-            tk.Button(self, text=genre, width=20, command= lambda dest=self.genres[genre]: self.controller.move_song_to(dest)).grid(row=rowIndex, column=columnIndex, padx=self.PAD, pady=self.PAD)
-            rowIndex +=1
+            button = tk.Button(self, text=genre, width=20, command= lambda dest=self.genres[genre]: self.controller.move_song_to(dest))
+            #.grid(row=rowIndex, column=columnIndex, padx=self.PAD, pady=self.PAD)
+            text.window_create("end", window=button)
+            text.insert("end", "\n")
+            
+        text.configure(state="disabled")
+
+
+        
+            
