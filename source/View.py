@@ -9,7 +9,7 @@ class View(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.controller = Controller()
+        self.controller = Controller(lambda: self.build_main_widgets())
         self.controller.model.update = lambda: self.update()
 
         self.menu = tk.Menu(self)
@@ -70,7 +70,7 @@ class View(tk.Tk):
 
     def exit_settings(self, settings):
         settings.destroy()
-        self.controller.model.update_genre_dict()
+        self.controller.model.update_genre_list()
         self.controller.model.update_song_list()
         self.build_main_widgets()
 
@@ -86,7 +86,7 @@ class View(tk.Tk):
         entry_new_genre.grid(row=0, column=0, columnspan=2, padx=self.PAD, pady=self.PAD)
 
         tk.Button(add_genre, text='add', width=40, command= lambda: value_new_genre.set(self.controller.add_genre(value_new_genre.get()))).grid(row=1, column=1, padx=self.PAD, pady=self.PAD)
-        tk.Button(add_genre, text='save changes and exit', width=40, command=add_genre.destroy).grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
+        tk.Button(add_genre, text='exit', width=40, command=add_genre.destroy).grid(row=1, column=0, padx=self.PAD, pady=self.PAD)
 
 def main():
     GenreSort = View()

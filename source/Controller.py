@@ -3,8 +3,9 @@ from tkinter import filedialog
 from Model import Model
 
 class Controller():
-    def __init__(self):
+    def __init__(self, updateView):
         self.model = Model()
+        self.update_view = updateView
         self.clear_track = None
 
     def move_song_to(self, destination):
@@ -32,7 +33,9 @@ class Controller():
         self.model.update()
 
     def add_genre(self, genre):
-        self.model.save_var_in_config('genre', genre, genre)
+        os.mkdir(os.path.join(self.model.main_directory, genre))
+        self.model.update_genre_list()
+        self.update_view()
         return ''
 
     def open_directory(self):

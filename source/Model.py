@@ -12,8 +12,8 @@ class Model():
         self.main_directory = self.config['path']['main_directory']
         if not os.path.exists(self.main_directory): self.main_directory = os.path.abspath('.')
 
-        self.genre_dict = {}
-        self.update_genre_dict()
+        self.genre_list = []
+        self.update_genre_list()
 
         self.current_song = ''
         self.song_list = []
@@ -21,8 +21,13 @@ class Model():
 
         self.update = None
 
-    def update_genre_dict(self):
-        self.genre_dict = self.config._sections['genre']
+    def update_genre_list(self):
+        dir_list = os.listdir(self.main_directory)
+        res_list = []
+        for item in dir_list:
+            if (not item.__contains__('.')):
+                res_list.append(item)
+        self.genre_list = res_list
 
     def update_song_list(self):
         dir_content = sorted(os.listdir(self.main_directory))
