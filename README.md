@@ -1,2 +1,2 @@
 # GenreSort
-Python -  tkinter tool that helps sorting your songs into different genre diretories
+Python -  tkinter tool that helps sorting your songs into different genre directories.
