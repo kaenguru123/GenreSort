@@ -31,7 +31,7 @@ class Model():
 
     def update_song_list(self):
         dir_content = sorted(os.listdir(self.main_directory))
-        self.song_list = [file for file in dir_content if re.search('.mp3\Z', file)]
+        self.song_list = [file for file in dir_content if re.search('.mp3\Z', file) or re.search('.wav\Z', file) or re.search('.flac\Z', file)]
         if self.song_list: self.current_song = self.song_list[0]
 
     def save_var_in_config(self, section, var, value):
