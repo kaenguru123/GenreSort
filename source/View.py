@@ -6,6 +6,7 @@ from MusicPlayer import MusicPlayer
 
 class View(tk.Tk):
     PAD = 10
+    SCALE = 1.0
     def __init__(self):
         super().__init__()
 

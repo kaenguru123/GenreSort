@@ -6,7 +6,7 @@ class Model():
     def __init__(self):
         self.config = ConfigParser()
 
-        self.config_file = os.path.abspath('.\\GenreSortConf.ini')
+        self.config_file = os.path.abspath('./GenreSortConf.ini')
         self.config.read(self.config_file)
 
         self.main_directory = self.config['path']['main_directory']
@@ -42,4 +42,4 @@ class Model():
             self.config.write(config_file)
     
     def get_path_curr_song(self):
-        return os.path.join(self.main_directory.replace('/', '\\'), self.current_song)
+        return os.path.join(self.main_directory.replace('/', '/'), self.current_song)

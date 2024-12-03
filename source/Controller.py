@@ -12,7 +12,7 @@ class Controller():
         self.clear_track()
 
         song = self.model.current_song
-        directory = self.model.main_directory.replace('/', '\\')
+        directory = self.model.main_directory.replace('/', '/')
 
         dest_dir = os.path.join(directory, destination)
         dest = os.path.join(dest_dir, song)
